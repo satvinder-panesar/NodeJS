@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>What's The Weather Like</title>
+		<nav class="navbar navbar-light bg-light">
+		  <span class="navbar-brand mb-0 h1">What's The Weather Like</span>
+		</nav>
+		<link rel="stylesheet" href="/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class = "container">
+			<div class="form-group">
+				<br><label for="LoginStatus"><%= data %></label>
+				<form action = "/ValidateLogin" method = "POST">
+				
+				  <div class="form-group">
+					<label for="exampleInputEmail1">Username</label>
+					<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username" name = "username" required>
+					</div>
+				  <div class="form-group">
+					<label for="exampleInputPassword1">Password</label>
+					<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password" name = "password" required>
+				  </div>
+				  <button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

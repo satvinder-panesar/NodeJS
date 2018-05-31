@@ -1,0 +1,32 @@
+<html>
+	<head>
+			<title>What's The Weather Like</title>
+			<nav class="navbar navbar-light bg-light">
+			  <span class="navbar-brand mb-0 h1">Petro-Intelligence</span>
+			</nav>
+			<link rel="stylesheet" href="/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class = "container">
+			<table class="table">
+				<thead>
+					<tr>
+					  <th class="bg-primary" scope="col">ZipCode</th>
+					  <th class="bg-primary" scope="col">City</th>
+					  <th class="bg-primary" scope="col">State</th>
+					  <th class="bg-primary" scope="col">Temperature</th>
+					</tr>
+			   </thead>
+				<% for(var i=0; i<data.length; i++){ %>
+				<tr>
+					<td><%= data[i].zip_code %></td>
+					<td><%= data[i].city %></td>
+					<td><%= data[i].state %></td>
+					<td><%= data[i].temp_f %></td>
+				</tr>
+				<% } %>
+			</table>
+		</div>
+	</body>
+</html>
+

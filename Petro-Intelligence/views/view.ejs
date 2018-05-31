@@ -1,0 +1,28 @@
+<html>
+	<head>
+			<title>Petro-Intelligence</title>
+			<nav class="navbar navbar-light bg-light">
+			  <span class="navbar-brand mb-0 h1">Petro-Intelligence</span>
+			</nav>
+			<link rel="stylesheet" href="/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class = "container">
+			<table class="table">
+				<thead>
+					<tr>
+					  <th class="bg-primary" scope="col">Type</th>
+					  <th class="bg-primary" scope="col">Price</th>
+					</tr>
+			   </thead>
+				<% for(var i=0; i<data.length; i++){ %>
+				<tr>
+					<td><%= data[i][0] %></td>
+					<td><%= data[i][1] %></td>
+				</tr>
+				<% } %>
+			</table>
+		</div>
+	</body>
+</html>
+

@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>What's The Weather Like</title>
+		<nav class="navbar navbar-light bg-light">
+		  <span class="navbar-brand mb-0 h1">What's The Weather Like</span>
+		</nav>
+		<link rel="stylesheet" href="/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class = "container">
+			<div class="form-group">
+				<form action = "/ShowUserEnteredCity" method = "POST">
+					<br>
+					<a href="/ShowCurrentWeather"> Use Current Location </a>
+					<br><br>
+				  <div class="form-group">
+					<label for="exampleInputEmail1">Zip Code</label>
+					<input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Zip Code" name = "zipcode" required>
+					</div>
+				  <button type="submit" class="btn btn-primary">Get Weather For Zip Code</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
