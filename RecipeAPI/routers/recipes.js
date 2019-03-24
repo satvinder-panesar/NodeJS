@@ -28,14 +28,25 @@ router.post("/addRecipe", (req, res) => {
 })
 
 router.post("/updateRecipe", (req, res) => {
-	const myquery = { name: req.body.name, username: req.body.username };
-	const newvalues = { $set: {steps: req.body.steps, ingredients: req.body.ingredients } };
+	const myquery = { name: req.body.name, username: req.body.username }
+	const newvalues = { $set: {steps: req.body.steps, ingredients: req.body.ingredients } }
   	recipe.updateOne(myquery, newvalues, (err, recipe) => {
   		if(err){
   			res.status(400)
   			res.json({message: "update failed"})
   		}
   		res.json({message: "update successful"})
+  	})
+})
+
+router.post("/deleteRecipe", (req, res) => {
+	const myquery = { name: req.body.name, username: req.body.username }
+	recipe.remove(myquery, (err, recipe) => {
+  		if(err){
+  			res.status(400)
+  			res.json({message: "delete failed"})
+  		}
+  		res.json({message: "delete successful"})
   	})
 })
 
