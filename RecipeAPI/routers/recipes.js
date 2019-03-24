@@ -121,7 +121,7 @@ router.post("/deleteRecipe", (req, res) => {
 			else{
 				// delete recipe
 				const myquery = { name: req.body.name, username: req.body.username }
-				recipe.remove(myquery, (err) => {
+				recipe.deleteOne(myquery, (err) => {
 			  		if(err){
 			  			handleError(err, "delete failed", res)
 			  		}
