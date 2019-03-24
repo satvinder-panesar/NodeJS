@@ -4,9 +4,10 @@ const path = require("path")
 const bodyparser = require("body-parser")
 const mongoose = require("mongoose")
 const recipes = require("./routers/recipes")
+const port = 8084
 
 app.use(bodyparser.json())
-app.listen(8084, () => console.log("Server started"))
+app.listen(port, () => console.log(`Server started at ${port}`))
 
 mongoose.set('useCreateIndex', true)
 
@@ -47,6 +48,7 @@ for(let i in recipe_instances){
 	});
 }
 
+// middleware for all routers
 app.use("/api/recipes", recipes)
 
 

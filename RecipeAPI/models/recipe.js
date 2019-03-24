@@ -1,5 +1,9 @@
 const mongoose = require("mongoose")
 
+let checkLimit = (arr) => {
+	return arr.length > 0
+}
+
 let recipeSchema = mongoose.Schema({
 	name: {
 		type: String,
@@ -11,11 +15,13 @@ let recipeSchema = mongoose.Schema({
 	},
 	steps: {
 		type: [String],
-		required: true
+		required: true,
+		validate: [checkLimit, "at least one step is required"]
 	},
 	ingredients: {
 		type: [String],
-		required: true
+		required: true,
+		validate: [checkLimit, "at least one ingredient is required"]
 	}
 
 })
