@@ -8,4 +8,10 @@ router.get("/getAll", (req, res) => {
 	})
 })
 
+router.get("/getRecipesBy/:username", (req, res) => {
+	recipe.find({username: req.params.username}, (err, recipes) => {
+		res.json(recipes)
+	})
+})
+
 module.exports = router

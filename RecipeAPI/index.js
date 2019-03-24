@@ -22,21 +22,31 @@ db.on('error', (error) => console.log(error));
 // importing model
 const recipe = require("./models/recipe")
 
-//inserting sample data
-const recipe_instance = new recipe({
-	name: "stir fry mushrooms",
-	username: "satvinder",
-	steps: ["cook mushrooms and red peppers", "add wine", "mix well"],
-	ingredients: ["red wine", "mushrooms", "red peppers"]
-})
+let recipe_instances = [
+	{
+		name: "stir fry mushrooms",
+		username: "satvinder",
+		steps: ["cook mushrooms and red peppers", "add wine", "mix well"],
+		ingredients: ["red wine", "mushrooms", "red peppers"]
+	},
+	{
+		name: "chicken rice bowl",
+		username: "satvinder",
+		steps: ["cook chicken and rice", "add corn, peppers and tomatoes", "mix well"],
+		ingredients: ["chicken", "rice", "corn", "peppers", "tomatoes"]
+	}
+]
 
-recipe_instance.save((err) => {
-  // error code 11000 is duplicate key
-  if (err) console.log(err.errmsg);
-  else{
-  	console.log("recipe instance saved")
-  }
-});
+for(let i in recipe_instances){
+	let recipe_instance = new recipe(recipe_instances[i])
+	recipe_instance.save((err) => {
+	  // error code 11000 is duplicate key
+	  if (err) console.log(err.errmsg);
+	  else{
+	  	console.log(`recipe instance ${i} saved`)
+	  }
+	});
+}
 
 app.use("/api/recipes", recipes)
 
