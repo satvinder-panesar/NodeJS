@@ -3,6 +3,7 @@ const app = new express()
 const path = require("path")
 const bodyparser = require("body-parser")
 const mongoose = require("mongoose")
+const recipes = require("./routers/recipes")
 
 app.use(bodyparser.json())
 app.listen(8084, () => console.log("Server started"))
@@ -19,10 +20,10 @@ db.once('open', () => console.log("connected to mongod"))
 db.on('error', (error) => console.log(error));
 
 // importing model
-let recipe = require("./models/recipe")
+const recipe = require("./models/recipe")
 
 //inserting sample data
-let recipe_instance = new recipe({
+const recipe_instance = new recipe({
 	name: "stir fry mushrooms",
 	username: "satvinder",
 	steps: ["cook mushrooms and red peppers", "add wine", "mix well"],
@@ -36,6 +37,8 @@ recipe_instance.save((err) => {
   	console.log("recipe instance saved")
   }
 });
+
+app.use("/api/recipes", recipes)
 
 
 

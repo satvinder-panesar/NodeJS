@@ -22,4 +22,5 @@ let recipeSchema = mongoose.Schema({
 
 })
 
+// for model name recipe, collection name is recipes
 let recipe = module.exports = mongoose.model("recipe", recipeSchema)
