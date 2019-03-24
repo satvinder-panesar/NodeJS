@@ -11,11 +11,11 @@ let recipeSchema = mongoose.Schema({
 		required: true,
 		unique: true
 	},
-	step: {
+	steps: {
 		type: [String],
 		required: true
 	},
-	ingredient: {
+	ingredients: {
 		type: [String],
 		required: true
 	}
