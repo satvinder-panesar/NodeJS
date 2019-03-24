@@ -9,7 +9,7 @@ let handleError = (err, message, res) => {
   		res.status(400)
   		res.json({status: "a recipe with name-username combination already exists"})
   	}
-  	else if(err.name === "ValidationError"){
+  	else if(err.name === "ValidationError" || err.name === "NotFound"){
   		res.status(400)
   		res.json({status: err.message})
   	}else{
@@ -24,6 +24,20 @@ let validRequest = (req) => {
 		return true
 	else
 		return false
+}
+
+let exists = (req) => {
+	const myquery = { name: req.body.name, username: req.body.username }
+	recipe.find(myquery, (err, recipe) => {
+		if(err)
+			return false
+		else if(recipe){
+			console.log(recipe)
+			return true
+		}
+		else
+			return false
+	})
 }
 
 router.get("/getAll", (req, res) => {
@@ -65,15 +79,28 @@ router.post("/updateRecipe", (req, res) => {
 		const err = {name: "ValidationError", message: "name and username are required fields"}
 		handleError(err, "", res)
 	}else{
+		// check if recipe exists
 		const myquery = { name: req.body.name, username: req.body.username }
-		const newvalues = { $set: {steps: req.body.steps, ingredients: req.body.ingredients } }
-	  	recipe.updateOne(myquery, newvalues, { runValidators: true }, (err) => {
-	  		if(err){
-	  			handleError(err, "update failed", res)
-	  		}
-	  		else
-	  			res.json({status: "update successful"})
-	  	})
+		recipe.find(myquery, (err, getResult) => {
+			if(err){
+				handleError(err, "get failed", res)
+			}else if(getResult.length === 0){
+				const err = {name: "NotFound", message: "no recipe found for name and username combination"}
+				handleError(err, "", res)
+			}
+			else{
+				// update recipe
+				const myquery = { name: req.body.name, username: req.body.username }
+				const newvalues = { $set: {steps: req.body.steps, ingredients: req.body.ingredients } }
+			  	recipe.updateOne(myquery, newvalues, { runValidators: true }, (err) => {
+			  		if(err){
+			  			handleError(err, "update failed", res)
+			  		}
+			  		else
+			  			res.json({status: "recipe updated"})
+			  	})
+			}
+		})
 	}
 })
 
@@ -82,14 +109,27 @@ router.post("/deleteRecipe", (req, res) => {
 		const err = {name: "ValidationError", message: "name and username are required fields"}
 		handleError(err, "", res)
 	}else{
+		//check if recipe exists
 		const myquery = { name: req.body.name, username: req.body.username }
-		recipe.remove(myquery, (err) => {
-	  		if(err){
-	  			handleError(err, "delete failed", res)
-	  		}
-	  		else
-	  			res.json({status: "delete successful"})
-	  	})
+		recipe.find(myquery, (err, getResult) => {
+			if(err){
+				handleError(err, "get failed", res)
+			}else if(getResult.length === 0){
+				const err = {name: "NotFound", message: "no recipe found for name and username combination"}
+				handleError(err, "", res)
+			}
+			else{
+				// delete recipe
+				const myquery = { name: req.body.name, username: req.body.username }
+				recipe.remove(myquery, (err) => {
+			  		if(err){
+			  			handleError(err, "delete failed", res)
+			  		}
+			  		else
+			  			res.json({status: "recipe deleted"})
+			  	})
+			}
+		})
 	}
 })
 

@@ -38,6 +38,7 @@ let recipe_instances = [
 	}
 ]
 
+// inserting dummy data
 for(let i in recipe_instances){
 	let recipe_instance = new recipe(recipe_instances[i])
 	recipe_instance.save((err) => {
