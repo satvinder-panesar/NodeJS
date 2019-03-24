@@ -40,7 +40,6 @@ let recipe_instances = [
 for(let i in recipe_instances){
 	let recipe_instance = new recipe(recipe_instances[i])
 	recipe_instance.save((err) => {
-	  // error code 11000 is duplicate key
 	  if (err) console.log(err.errmsg);
 	  else{
 	  	console.log(`recipe instance ${i} saved`)

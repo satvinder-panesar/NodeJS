@@ -19,13 +19,24 @@ router.post("/addRecipe", (req, res) => {
 	recipe_instance.save((err) => {
 	  // error code 11000 is duplicate key
 	  if (err && err.code === 11000){
+	  	// 400 is for bad request
 	  	res.status(400)
 	  	res.json({message: "a recipe with name-username combination already exists"})
 	  }
-	  else{
-	  	res.json({message: "recipe added"})
-	  }
+	  res.json({message: "recipe added"})
 	});
+})
+
+router.post("/updateRecipe", (req, res) => {
+	const myquery = { name: req.body.name, username: req.body.username };
+	const newvalues = { $set: {steps: req.body.steps, ingredients: req.body.ingredients } };
+  	recipe.updateOne(myquery, newvalues, (err, recipe) => {
+  		if(err){
+  			res.status(400)
+  			res.json({message: "update failed"})
+  		}
+  		res.json({message: "update successful"})
+  	})
 })
 
 module.exports = router
